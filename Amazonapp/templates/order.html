@@ -1,0 +1,34 @@
+{% extends "project.html" %}
+
+{% block content %}
+	<table class="table table-striped"  align=center>
+		 <h1 align="center">Your orders</h1>
+
+	{% if order %}
+        <thead class="thead-light">
+		<tr><th>Image</th><th>Details</th><th>Price</th><th>Units</th><th>Date</th></tr>
+		</thead>
+        {{total}}
+	    {% for subcat in order %}
+	    <tr>
+	        <td>
+				{% if subcat.product__image %}
+					<img src="/media/{{subcat.product__image}}" width="150" height="200" alt={{subcat.image}}>
+				{% endif %}
+			</td>
+            <td><h4>{{subcat.product__title}}</h4><br>
+                <p>{{subcat.product__description}}</p>
+            </td>
+            <td><h4>{{subcat.product__price}}</h4></td>
+
+            <td><h4>{{subcat.units}}</h4></td>
+            <td><h4>{{subcat.date}}</h4></td>
+
+	    </tr>
+	    {% endfor %}
+	{% else %}
+        <br>
+	    <h4 align="center" style="color:red;">You have not ordered anything Yet</h4>
+	{% endif %}
+	</table>
+{% endblock %}

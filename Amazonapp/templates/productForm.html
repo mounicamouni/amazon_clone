@@ -1,0 +1,45 @@
+{% extends "project.html" %}
+
+{% block content %}
+
+
+<div class="container">
+	<div class="cols-xs-6 cols-xs-offset-3">
+		<form enctype="multipart/form-data" method="post">
+			{% csrf_token %}
+			<fieldset>
+				<legend>Add Product</legend>
+				<div class="form-group">
+					<label for="{{ for.title.id_for_label }}">Title</label>
+					{{form.title}}
+				</div>
+				<div class="form-group">
+					<label for="{{ for.price.id_for_label }}">Price</label>
+					{{form.price}}
+				</div>
+				<div class="form-group">
+					<label for="{{ for.units.id_for_label }}">Units</label>
+					{{form.units}}
+				</div>
+				<div class="form-group">
+					<label for="{{ for.rating.id_for_label }}">Rating</label>
+					{{form.rating}}
+				</div>
+
+				<div class="form-group">
+					<label for="{{ for.Image.id_for_label }}">Image</label>
+					{{form.image}}
+				</div>
+
+				<div class="form-group">
+					<label for="{{ for.description.id_for_label }}">Description</label>
+					{{form.description}}
+				</div>
+
+				<input type="submit" value="submit"/>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+{% endblock %}

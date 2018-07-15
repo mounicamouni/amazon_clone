@@ -1,0 +1,44 @@
+{% extends "project.html" %}
+
+{% block content %}
+	<div class="container">
+		 <h1 align="center">Product Details</h1>
+		 <br>
+		 <br>
+		{% if request.user.is_superuser %}
+        <button class="btn btn-default active"><a href="{{subcategoryID}}/products/add">Add Product</a></button>
+		 {% endif %}
+		 <br>
+		 <br>
+	{% if product %}
+		<div class="container">
+			<div class="row">
+	    {% for subcat in product %}
+				<div class="col-md-3 responsive"  id={item.id}>
+	    		<div class="thumbnail">
+					{% if subcat.image %}
+						<img src="/media/{{subcat.image}}" class="img-circle img-responsive"   alt={{subcat.image}}>
+					{% endif %}
+					<div class="text-center">
+						<h4>{{subcat.title}}</h4>
+						<p>{{subcat.description}}</p>
+						<h4 class="price">price: <span>{{subcat.price}}/-</span></h4>
+						<a href="{% url 'addtocart_html' subcat.id %}" target="_blank" class="btn btn-info btn-md">
+						  <span class="glyphicon glyphicon-shopping-cart"></span> AddtoCart
+						</a>
+					</div>
+				</div>
+				{% if request.user.is_superuser %}
+				<a href="{{subcategoryID}}/products/{{subcat.id}}/edit">edit</a>
+				<a href="{{subcategoryID}}/products/{{subcat.id}}/delete">delete</a>
+					{% endif %}
+				</div>
+	    {% endfor %}
+			</div>
+		</div>
+	{% else %}
+	    <p>No polls are available.</p>
+	{% endif %}
+	</div>
+{% endblock %}
+

@@ -1,0 +1,58 @@
+{% extends "project.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 align="center">{{user.get_username}},Your Cart</h1>
+
+<div class="wrapper row">
+<div class="col-md-9 responsive">
+	<table class="table responsive" align="center">
+	{% if cart %}
+		<thead class="thead-light">
+		<tr><td>Image</td><td>Details</td><td colspan="2">Price</td><td>Units</td></tr>
+		</thead>
+        {{total}}
+	    {% for subcat in cart %}
+	    <tr>
+	        <td>
+				{% if subcat.product__image %}
+					<img src="/media/{{subcat.product__image}}" width="200" height="300" alt={{subcat.image}}>
+				{% endif %}
+			</td>
+            <td><h4>{{subcat.product__title}}</h4></td>
+            <td><h4>{{subcat.product__price}}</h4></td>
+
+            <td>
+                    <a href="{% url 'increment_html' subcat.product__id %}" class="btn btn-info btn-sm">
+                  <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+            </td>
+            <td>{{subcat.units}}</td>
+            <td>
+                    <a href="{% url 'decrement_html' subcat.product__id %}" class="btn btn-info btn-sm">
+                  <span class="glyphicon glyphicon-minus"></span>
+                    </a>
+            </td>
+			<td>
+				<a href="{% url 'delete_cart_html' subcat.product__id %}">delete</a>
+			</td>
+	    </tr>
+
+	    {% endfor %}
+	{% else %}
+	    <p>No polls are available.</p>
+	{% endif %}
+	</table>
+</div>
+    <div class="col-md-3 responsive" align="center" >
+        <br><br><br>
+        <h4>Subtotal:{{total}}</h4>
+		<a href="{% url 'address' %}" class="btn btn-info btn-md">
+			<span class="glyphicon glyphicon-shopping-cart"></span> Checkout({{total}})
+		</a>
+    </div>
+    </div>
+</div>
+
+{% endblock %}
+

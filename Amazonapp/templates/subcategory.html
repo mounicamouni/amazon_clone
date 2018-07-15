@@ -1,0 +1,51 @@
+{% extends "project.html" %}
+{% load staticfiles %}
+
+{% block content %}
+	<div class="container">
+		 <h1 align="center">Subcategory Details</h1>
+		 <br>
+
+		{% if request.user.is_superuser %}
+        <button class="btn btn-default active"><a href="{{categoryID}}/subcategory/add">Add Subcategory</a></button>
+		{% endif %}
+
+	{% if subcategory %}
+		<div class="container">
+			<div class="row">
+
+	    	{% for subcat in subcategory %}
+	    <div class="col-md-4 responsive" id={item.id}>
+			<a href="/category/{{subcat.category__id}}/subcategory/{{subcat.id}}" >
+				<div class="thumbnail">
+                    {{subcat.image}}
+					{{subcat.image.url }}
+					{% if subcat.image %}
+						<img src="/media/{{subcat.image}}" class="img-circle" width="304" height="236">
+					{% endif %}
+					<div class="text-center">
+						<p>{{subcat.title}}</p>
+						<p>{{subcat.description}}</p>
+					</div>
+				</div>
+			</a>
+
+		{% if request.user.is_superuser %}
+            <p><a href="/category/{{subcat.category__id}}/subcategory/{{subcat.id}}/edit">edit</a></p>
+            <p><a href="/category/{{subcat.category__id}}/subcategory/{{subcat.id}}/delete">delete</a></p>
+		{% endif %}
+	    </div>
+
+	    {% endfor %}
+			</div>
+		</div>
+
+	{% else %}
+	    <p>No polls are available.</p>
+	{% endif %}
+	</div>
+{% endblock %}
+
+
+
+

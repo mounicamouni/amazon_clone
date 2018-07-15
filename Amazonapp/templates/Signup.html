@@ -1,0 +1,34 @@
+{% extends "project.html" %}
+{% block content %}
+
+<div class="col-md-4 responsive">
+	<div class="cols-xs-2 cols-xs-offset-3">
+		<form method="post">
+			{% csrf_token %}
+			<fieldset>
+			{% for field in form %}
+			  <p>
+				{{ field.label_tag }}<br>
+				{{ field }}
+				{% if field.help_text %}
+				  <small style="color: grey">{{ field.help_text }}</small>
+				{% endif %}
+				{% for error in field.errors %}
+				  <p style="color: red">{{ error }}</p>
+				{% endfor %}
+			  </p>
+			{% endfor %}
+
+			<button type="submit">Sign up</button>
+                <div style=" padding-top:15px; font-size:85%" >
+                                            Already have an account!
+                                        <a href="{% url 'login_html' %}">
+                                             Login Here
+                                        </a>
+                </div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+{% endblock %}

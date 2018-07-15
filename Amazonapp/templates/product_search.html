@@ -1,0 +1,39 @@
+{% extends "project.html" %}
+
+{% block content %}
+	<div class="container">
+		 <h1 align="center">Related Search</h1>
+
+	{% if product %}
+		<div class="container">
+			<div class="row">
+
+	    {% for prod in product %}
+				<div class="col-md-3 responsive"  id={item.id}>
+	    		<div class="thumbnail">
+					{% if prod.image %}
+						<img src="/media/{{prod.image}}" class="img-circle img-responsive"   alt={{prod.image}}>
+					{% endif %}
+					<div class="text-center">
+						<h4>{{prod.title}}</h4>
+						<p>{{prod.description}}</p>
+						<h4 class="price">price: <span>{{prod.price}}/-</span></h4>
+						<a href="{% url 'addtocart_html' prod.id %}" target="_blank" class="btn btn-info btn-md">
+						  <span class="glyphicon glyphicon-shopping-cart"></span> AddtoCart
+						</a>
+					</div>
+				</div>
+				{% if request.user.is_superuser %}
+				<a href="/category/{{prod.subcategory__category__id}}/subcategory/{{prod.subcategory__id}}/products/{{prod.id}}/edit">edit</a>
+				<a href="/category/{{prod.subcategory__category__id}}/subcategory/{{prod.subcategory__id}}/products/{{prod.id}}/delete">delete</a>
+					{% endif %}
+				</div>
+
+	    {% endfor %}
+			</div>
+		</div>
+	{% else %}
+	    <p>No polls are available.</p>
+	{% endif %}
+	</div>
+{% endblock %}

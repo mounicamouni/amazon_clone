@@ -1,0 +1,41 @@
+{% extends "project.html" %}
+
+{% block content %}
+	<table class="table table-striped"  align=center>
+		 <h1 align="center">Product Details</h1>
+		 <br>
+		 <br>
+        <button class="btn btn-default active"><a href="{{subcategoryID}}/products/add">Add Product</a></button>
+		 <button class="btn btn-default active"><a href="{% url 'logout_html' %}">Logout</a></button>
+		 <br>
+		 <br>
+	{% if cart %}
+		<thead class="thead-light">
+		<tr><td>Title</td><td>image</td><td colspan="2">description</td></tr>
+		</thead>
+		{{user.get_username}}
+	    {% for subcat in cart %}
+
+	    <tr>
+            <td>{{subcat.title}}</td>
+            <td>{{subcat.price}}</td>
+
+	        <td>
+				{% if subcat.image %}
+					<img src="/media/{{subcat.image}}" width="300" height="200" alt={{subcat.image}}>
+				{% endif %}
+			</td>
+			<td>{{subcat.description}}</td>
+
+
+	    </tr>
+	    {% endfor %}
+	{% else %}
+	    <p>No polls are available.</p>
+	{% endif %}
+	</table>
+{% endblock %}
+
+
+
+
