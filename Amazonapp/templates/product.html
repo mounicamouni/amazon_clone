@@ -1,5 +1,5 @@
 {% extends "project.html" %}
-
+{% load staticfiles  %}
 {% block content %}
 	<div class="container">
 		 <h1 align="center">Product Details</h1>
@@ -13,11 +13,12 @@
 	{% if product %}
 		<div class="container">
 			<div class="row">
+
 	    {% for subcat in product %}
 				<div class="col-md-3 responsive"  id={item.id}>
 	    		<div class="thumbnail">
 					{% if subcat.image %}
-						<img src="/media/{{subcat.image}}" class="img-circle img-responsive"   alt={{subcat.image}}>
+						<img src="/media/{{subcat.image}}" class="img-circle img-responsive" onerror="this.src='{% static 'blackdress.jpg' %}'">
 					{% endif %}
 					<div class="text-center">
 						<h4>{{subcat.title}}</h4>
@@ -33,12 +34,16 @@
 				<a href="{{subcategoryID}}/products/{{subcat.id}}/delete">delete</a>
 					{% endif %}
 				</div>
+
 	    {% endfor %}
 			</div>
 		</div>
 	{% else %}
-	    <p>No polls are available.</p>
+	    <p>No products to show</p>
 	{% endif %}
 	</div>
 {% endblock %}
+
+
+
 

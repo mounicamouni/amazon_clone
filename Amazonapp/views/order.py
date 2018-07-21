@@ -25,10 +25,8 @@ class OrderListView(LoginRequiredMixin,DetailView):
     def get_context_data(self,**kwargs):
         context = super(OrderListView, self).get_context_data(**kwargs)
         user = context.get('user_list')
-        # import ipdb
-        # ipdb.set_trace()
-        # pass
         context['userID'] = user.id
+
         print(type(user))
         order = list(
             Order.objects.values('product__id','product__title','product__description', 'product__image', 'product__price', 'units','date').order_by('date').filter(user_id=user.id))
@@ -46,6 +44,7 @@ def order(request,**kwargs):
 def place_order(request,**kwargs):
     try:
         c=list(Cart1.objects.values().filter(user_id=request.user.id))
+
         for i in c:
             prod = get_object_or_404(Product, pk=i['product_id'])
             order=Order(product=prod,user=request.user,units=i['units'])
@@ -54,4 +53,4 @@ def place_order(request,**kwargs):
             car.delete()
     except:
         pass
-    return redirect('cart_html',request.user.id)
+    return redirect('order_html',request.user.id)

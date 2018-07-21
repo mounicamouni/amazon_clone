@@ -16,19 +16,6 @@ from Amazonapp.models import Address
 
 class AddressListView(LoginRequiredMixin,DetailView):
     login_url = '/login/'
-    # model = Address
-    # context_object_name='address'
-    # template_name = "address.html"
-    #
-    # def get_context_data(self,**kwargs):
-    #     context=super(AddressListView,self).get_context_data(**kwargs)
-    #
-    #     import ipdb
-    #     ipdb.set_trace()
-    #     pass
-    #     return context
-    # # login_url = '/login/'
-    #
     model = User
     context_object_name = 'user_list'
     template_name = "address.html"
@@ -39,9 +26,6 @@ class AddressListView(LoginRequiredMixin,DetailView):
     def get_context_data(self, **kwargs):
         context = super(AddressListView, self).get_context_data(**kwargs)
         user = context.get('user_list')
-        # import ipdb
-        # ipdb.set_trace()
-        # pass
         context['userID'] = user.id
 
         print(type(user))
@@ -82,49 +66,11 @@ class AddressForm(forms.ModelForm):
             'state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter title'}),
             'address_type': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter title'}),
         }
-# class AddressForm(forms.Form):
-#     mobileno = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
-#                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'mobileno'}),
-#                                 help_text=(
-#                                     "Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")),
-#     country=forms.CharField(
-#         max_length=15,
-#         required=True,
-#         widget=forms.TextInput(attrs={'class':'form-control' ,'placeholder':'enter title'  })),
-#     fullname = forms.CharField(
-#         max_length=15,
-#         required=True,
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter title'})),
-#     pincode = forms.CharField(
-#         max_length=15,
-#         required=True,
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter title'})),
-#     street = forms.CharField(
-#         max_length=15,
-#         required=True,
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter title'})),
-#     landmark=forms.CharField(
-#         max_length=15,
-#         required=True,
-#         widget=forms.TextInput(attrs={'class':'form-control' ,'placeholder':'enter title'  })),
-#     city = forms.CharField(
-#         max_length=15,
-#         required=True,
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter title'})),
-#     state = forms.CharField(
-#         max_length=15,
-#         required=True,
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter title'})),
-#     address_type = forms.CharField(
-#         max_length=15,
-#         required=True,
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter title'})),
+
 
 from django.views.generic.edit import CreateView
 class CreateAddressView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
-    # permission_required = 'onlineapp.college_list'
-    # permission_denied_message = 'Sorry ! u cant add..login before u add'
     model = Address
     form_class = AddressForm
     template_name = 'addressForm.html'
@@ -135,9 +81,6 @@ class CreateAddressView(LoginRequiredMixin,CreateView):
         return context
     def post(self, request, *args, **kwargs):
         address_form = AddressForm(request.POST)
-        # import ipdb
-        # ipdb.set_trace()
-        # pass
         if address_form.is_valid():
             address = address_form.save(commit=False)
             address.user = request.user
@@ -165,8 +108,6 @@ class UpdateAddressView(LoginRequiredMixin,UpdateView):
 
 class DeleteAddressView(LoginRequiredMixin,DeleteView):
     login_url = '/login/'
-    # permission_required = 'onlineapp.college_list'
-    # permission_denied_message = 'Sorry ! u cant add..login before u add'
     model=Address
     success_url = reverse_lazy('address_add_html')
     def get(self, request, *args, **kwargs):

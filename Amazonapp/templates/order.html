@@ -1,19 +1,20 @@
 {% extends "project.html" %}
-
+{% load staticfiles  %}
 {% block content %}
+<div class="container">
 	<table class="table table-striped"  align=center>
 		 <h1 align="center">Your orders</h1>
 
 	{% if order %}
         <thead class="thead-light">
-		<tr><th>Image</th><th>Details</th><th>Price</th><th>Units</th><th>Date</th></tr>
+		<tr><th>Image</th><th>Details</th><th>Unit Price</th><th>Units</th><th>Date</th></tr>
 		</thead>
         {{total}}
 	    {% for subcat in order %}
 	    <tr>
 	        <td>
 				{% if subcat.product__image %}
-					<img src="/media/{{subcat.product__image}}" width="150" height="200" alt={{subcat.image}}>
+					<img src="/media/{{subcat.product__image}}" width="150" height="150" onerror="this.src='{% static 'blackdress.jpg' %}'">
 				{% endif %}
 			</td>
             <td><h4>{{subcat.product__title}}</h4><br>
@@ -31,4 +32,5 @@
 	    <h4 align="center" style="color:red;">You have not ordered anything Yet</h4>
 	{% endif %}
 	</table>
+	</div>
 {% endblock %}

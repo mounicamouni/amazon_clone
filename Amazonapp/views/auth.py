@@ -18,6 +18,8 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user.email = form.cleaned_data.get('email')
+            user.save()
             user.refresh_from_db()  # load the profile instance created by the signal
             user.profile.mobileno = form.cleaned_data.get('mobileno')
             user.save()
@@ -27,33 +29,26 @@ def signup(request):
             return redirect('category_html')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'Signup.html', {'form': form})
 
 class LoginController(View):
     def get(self,request):
-        form=LoginForm()
+        form = LoginForm()
         return render(
             request,
             template_name='Login.html',
-            context={'form': form, 'title': 'Login'}
+            context = {'form':form,'title': 'Login'}
         )
-
-    def post(self,request,*args,**kwargs):
-        form=LoginForm(request.POST)
+    def post(self,request):
+        form = LoginForm(request.POST)
         if form.is_valid():
-            user=form.cleaned_data
-            user=authenticate(
-                request,
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password']
-            )
+            user = form.cleaned_data
+            user = authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password'])
             if user is not None:
                 login(request,user)
                 return redirect('category_html')
-            else:
-                messages.error(request,"invalid credentials")
-        else:
-            messages.error(request,"invalid credentials")
+        return redirect('login_html')
+
 def logout_user(request):
     logout(request)
     return redirect('home')

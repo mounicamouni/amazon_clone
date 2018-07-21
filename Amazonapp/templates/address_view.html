@@ -1,0 +1,75 @@
+{% extends "project.html" %}
+
+{% block content %}
+<div class="container">
+		 <h1 align="center">Address Details</h1>
+		 <br>
+		 <br>
+		 <button class="btn btn-default active"><a href="{% url 'address_add_html' %}">Add Address</a></button>
+
+		 <br>
+		 <br>
+	{% if address %}
+	<div class="container">
+			<div class="row">
+	    {% for add in address %}
+		<table class="col-md-6"  align=center>
+			<thead class="head light">
+			<tr>
+				<th></th>
+				<th align="left">Address</th>
+			</tr>
+			</thead>
+	    <tr>
+			<td><h5><b>Country</b></h5> </td><td>{{ add.country }}</td>
+		</tr>
+		<tr>
+            <td><h5><b>fullname</b></h5> </td><td>{{add.fullname}}</td>
+			</tr>
+		<tr>
+            <td><h5><b>mobileno</b></h5> </td><td>{{add.mobileno}}</td>
+		</tr>
+		<tr>
+            <td><h5><b>pincode</b></h5> </td><td>{{add.pincode}}</td>
+		</tr>
+		<tr>
+            <td><h5><b>city</b></h5> </td><td>{{add.city}}</td>
+			</tr>
+		<tr>
+            <td><h5><b>street</b></h5> </td><td>{{add.street}}</td>
+			</tr>
+		<tr>
+            <td><h5><b>landmark</b></h5> </td><td>{{add.landmark}}</td>
+			</tr>
+		<tr>
+            <td><h5><b>state</b></h5> </td><td>{{add.state}}</td>
+			</tr>
+		<tr>
+			<td><h5>Address</h5> </td><td>{{add.address_type}}</td>
+			</tr>
+		<tr>
+		<td></td>
+		 <td><a href="{% url 'address_html' add.id %}/edit" >edit</a></td>
+			</tr>
+		<tr>
+		<td></td>
+		 <td><a href="{% url 'address_html' add.id %}/delete" >delete</a></td>
+			</tr>
+		<tr>
+		<td></td>
+            </tr>
+	</table>
+	<div class="col-md-6">
+
+	</div>
+		{% endfor %}
+			</div>
+	</div>
+	{% else %}
+	    <p>No Address given.</p>
+	{% endif %}
+	</div>
+{% endblock %}
+
+
+

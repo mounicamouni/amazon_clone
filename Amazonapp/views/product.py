@@ -10,23 +10,8 @@ from django.contrib.auth.mixins import *
 
 from Amazonapp.models import *
 
-# class SubcategoryProductList(ListView):
-#     login_url = '/login/'
-#     model = Product
-#     context_object_name = 'category'
-#     template_name = "category.html"
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(SubcategoryProductList, self).get_context_data(**kwargs)
-#         # import ipdb
-#         # ipdb.set_trace()
-#         # pass
-#         return context
-
-
 
 class SubcategoryProductList(DetailView):
-    #print("bgffffffffffffffffffffffffffffffffffffffffffffffffffff")
     login_url = '/login/'
     model = Subcategory
     context_object_name = 'subcategory_list'
@@ -36,16 +21,9 @@ class SubcategoryProductList(DetailView):
         return get_object_or_404(Subcategory, **self.kwargs)
 
     def get_context_data(self, **kwargs):
-        # import ipdb
-        # ipdb.set_trace()
-        # pass
         context = super(SubcategoryProductList, self).get_context_data(**kwargs)
         subcategory = context.get('subcategory_list')
-
         context['subcategoryID'] = subcategory.id
-        # import ipdb
-        # ipdb.set_trace()
-        # pass
         print(type(subcategory))
         product = list(
             Product.objects.values('subcategory__id', 'id', 'title','image','price','rating','description').filter(
@@ -109,9 +87,6 @@ class UpdateSubcategoryProductView(LoginRequiredMixin,PermissionRequiredMixin,Up
 
     def post(self, request, *args, **kwargs):
         product = Product.objects.get(pk=kwargs.get('pk'))
-        # import ipdb
-        # ipdb.set_trace()
-        # pass
         form = ProductForm(request.POST,request.FILES, instance=product)
         form.save()
         return redirect('product_html',self.kwargs.get('category_id'), self.kwargs.get('subcategory_id'))
@@ -130,6 +105,3 @@ class DeleteSubcategoryProductView(LoginRequiredMixin,PermissionRequiredMixin,De
         self.delete(request, args, kwargs)
         return redirect('product_html',self.kwargs.get('category_id'), self.kwargs.get('subcategory_id'))
 
-
-
-    ###########################working#########################

@@ -73,7 +73,7 @@
                             <div class="carousel-inner">
                                 <div class="item active">
                                 {% if cat.image %}
-								<img src="{{ cat.image.url }}" class="img-responsive img-rounded">
+								<img src="{{ cat.image.url }}" class="img-responsive img-rounded" onerror="this.src='{% static 'women.jpg' %}'" >
 							{% endif %}
                                    <div class="carousel-caption">
                                           <h2>{{ cat.title }}</h2>

@@ -107,9 +107,7 @@ def cart(request,**kwargs):
 def cart_create(request,**kwargs):
     login_url="/login/"
     prod = get_object_or_404(Product, pk=kwargs['pk'])
-    # import ipdb
-    # ipdb.set_trace()
-    # pass
+
     try:
         c=list(Cart1.objects.values().get(product_id=prod.id,user_id=request.user.id))
         c = Cart1.objects.get(product_id=prod.id, user_id=request.user.id)
@@ -122,8 +120,6 @@ def cart_create(request,**kwargs):
 @login_required
 def increment_cart(request,**kwargs):
     login_url = "/login/"
-    # import ipdb
-    # ipdb.set_trace()
     prod = get_object_or_404(Product, pk=kwargs['pk'])
     c = Cart1.objects.get(product_id=prod.id, user_id=request.user.id)
     c.units = c.units + 1
@@ -134,8 +130,6 @@ def increment_cart(request,**kwargs):
 def decrement_cart(request,**kwargs):
     login_url = "/login/"
     prod = get_object_or_404(Product, pk=kwargs['pk'])
-    # import ipdb
-    # ipdb.set_trace()
     c = Cart1.objects.get(product_id=prod.id, user_id=request.user.id)
     if c.units==1:
         pass

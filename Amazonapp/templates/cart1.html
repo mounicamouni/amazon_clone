@@ -1,5 +1,5 @@
 {% extends "project.html" %}
-
+{% load staticfiles  %}
 {% block content %}
 <div class="container">
     <h1 align="center">{{user.get_username}},Your Cart</h1>
@@ -16,7 +16,7 @@
 	    <tr>
 	        <td>
 				{% if subcat.product__image %}
-					<img src="/media/{{subcat.product__image}}" width="200" height="300" alt={{subcat.image}}>
+					<img src="/media/{{subcat.product__image}}" width="200" height="250" onerror="this.src='{% static 'blackdress.jpg' %}'">
 				{% endif %}
 			</td>
             <td><h4>{{subcat.product__title}}</h4></td>

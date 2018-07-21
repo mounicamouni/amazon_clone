@@ -10,107 +10,25 @@ from django.contrib.auth.mixins import *
 
 from Amazonapp.models import *
 
-# class SubcategoryList(DetailView):
-#     # login_url = '/login/'
-#
-#     # model = Subcategory
-#     # context_object_name = 'subcategory_list'
-#     # template_name = "category.html"
-#     #
-#     # def get_context_data(self, **kwargs):
-#     #     context = super(SubcategoryList, self).get_context_data(**kwargs)
-#     #     x=context['subcategory_list']
-#     #     z=list(
-#     #          Subcategory.objects.values('id','title','image', 'description').filter(
-#     #              id=x.id))
-#     #     print(z)
-#     #     import ipdb
-#     #     ipdb.set_trace()
-#     #     pass
-#     #     context.update({
-#     #             'user_permissions': self.request.user.get_all_permissions(),
-#     #             'subcategory':z ,
-#     #         })
-#     #
-#     #     return context
-#
-#     login_url = '/login/'
-#
-#     model = Category
-#     context_object_name = 'category_list'
-#     template_name = "subcategory.html"
-#
-#     def get_object(self, queryset=None):
-#         return get_object_or_404(Category, **self.kwargs)
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(SubcategoryList, self).get_context_data(**kwargs)
-#         category = context.get('category_list')
-#
-#         context['categoryID'] = category.id
-#         # import ipdb
-#         # ipdb.set_trace()
-#         # pass
-#         print(type(category))
-#         subcategory = list(
-#             Category.objects.values('id', 'subcategory__id', 'subcategory__title','subcategory__image', 'subcategory__description').filter(
-#                 id=category.id))
-#
-#
-#         context.update({
-#             'user_permissions': self.request.user.get_all_permissions(),
-#             'subcategory':subcategory ,
-#         })
-#         return context
+
 
 
 class SubcategoryList(DetailView):
-    # login_url = '/login/'
-
-    # model = Subcategory
-    # context_object_name = 'subcategory_list'
-    # template_name = "category.html"
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super(SubcategoryList, self).get_context_data(**kwargs)
-    #     x=context['subcategory_list']
-    #     z=list(
-    #          Subcategory.objects.values('id','title','image', 'description').filter(
-    #              id=x.id))
-    #     print(z)
-    #     import ipdb
-    #     ipdb.set_trace()
-    #     pass
-    #     context.update({
-    #             'user_permissions': self.request.user.get_all_permissions(),
-    #             'subcategory':z ,
-    #         })
-    #
-    #     return context
-
     login_url = '/login/'
-
     model = Category
     context_object_name = 'category_list'
     template_name = "subcategory.html"
-
     def get_object(self, queryset=None):
         return get_object_or_404(Category, **self.kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(SubcategoryList, self).get_context_data(**kwargs)
         category = context.get('category_list')
-
         context['categoryID'] = category.id
-        # import ipdb
-        # ipdb.set_trace()
-        # pass
         print(type(category))
         subcategory = list(
             Subcategory.objects.values('category__id', 'id', 'title','image', 'description').filter(
                 category_id=category.id))
-
-
         context.update({
             'user_permissions': self.request.user.get_all_permissions(),
             'subcategory':subcategory ,
@@ -146,9 +64,7 @@ class CreateSubcategoryView(LoginRequiredMixin,PermissionRequiredMixin,CreateVie
         category = get_object_or_404(Category, pk=kwargs['pk'])
         subcategory_form = SubcategoryForm(request.POST,request.FILES)
         form_class = SubcategoryForm
-        # import ipdb
-        # ipdb.set_trace()
-        # pass
+
         if subcategory_form.is_valid():
             subcategory = subcategory_form.save(commit=False)
             subcategory.category = category
@@ -179,9 +95,7 @@ class DeleteSubcategoryView(LoginRequiredMixin,PermissionRequiredMixin,DeleteVie
     login_url = '/login/'
     permission_required = 'category_html'
     permission_denied_message = 'Sorry ! u cant add..login before u add'
-    # login_url = '/login/'
-    # permission_required = 'onlineapp.college_list'
-    # permission_denied_message = 'Sorry ! u cant add..login before u add'
+
     model=Subcategory
     success_url = reverse_lazy('category_html')
     def get(self, request, *args, **kwargs):

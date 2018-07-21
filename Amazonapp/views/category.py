@@ -19,9 +19,6 @@ class CategoryListView(ListView):
 
     def get_context_data(self,**kwargs):
         context=super(CategoryListView,self).get_context_data(**kwargs)
-        # import ipdb
-        # ipdb.set_trace()
-        # pass
         return context
 
 
@@ -48,18 +45,6 @@ class CreateCategoryView(LoginRequiredMixin,PermissionRequiredMixin,CreateView):
     success_url=reverse_lazy('category_html')
     template_name = 'categoryForm.html'
 
-
-
-# def upload_file(request):
-#     if request.method == 'POST':
-#         form = CategoryForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             instance = CategoryForm(image=request.FILES['file'])
-#             instance.save()
-#             return HttpResponseRedirect('category_html')
-#     else:
-#         form = CategoryForm()
-#     return render(request, 'category.html', {'form': form})
 
 class UpdateCategoryView(LoginRequiredMixin,PermissionRequiredMixin,UpdateView):
     login_url = '/login/'

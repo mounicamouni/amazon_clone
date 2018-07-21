@@ -1,6 +1,5 @@
 {% extends "project.html" %}
-{% load staticfiles %}
-
+{% load staticfiles  %}
 {% block content %}
 	<div class="container">
 		 <h1 align="center">Subcategory Details</h1>
@@ -18,13 +17,11 @@
 	    <div class="col-md-4 responsive" id={item.id}>
 			<a href="/category/{{subcat.category__id}}/subcategory/{{subcat.id}}" >
 				<div class="thumbnail">
-                    {{subcat.image}}
-					{{subcat.image.url }}
 					{% if subcat.image %}
-						<img src="/media/{{subcat.image}}" class="img-circle" width="304" height="236">
+						<img src="/media/{{subcat.image}}"  class="img-rounded" onerror="this.src='{% static 'clothing.jpg' %}'">
 					{% endif %}
 					<div class="text-center">
-						<p>{{subcat.title}}</p>
+						<h4>{{subcat.title}}</h4>
 						<p>{{subcat.description}}</p>
 					</div>
 				</div>
@@ -41,7 +38,7 @@
 		</div>
 
 	{% else %}
-	    <p>No polls are available.</p>
+	    <p>No subcategories to show</p>
 	{% endif %}
 	</div>
 {% endblock %}

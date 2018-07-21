@@ -1,44 +1,49 @@
 {% extends "project.html" %}
 
 {% block content %}
-	<table class="table table-striped"  align=center>
+<div class="container">
 		 <h1 align="center">Address Details</h1>
+	<h3 style="color:red;">If you want to place your order for items in cart,only then Click Confirm,else donot click confirm</h3>
 		 <br>
 		 <br>
-		 <button class="btn btn-default active"><a href="{% url 'address_add_html' %}">Add Address</a></button>
+	<div align="center">
+		 <button class="btn btn-default active" ><a href="{% url 'address_add_html' %}">Add Address</a></button>
+	</div>
+		 <br>
+		 <br>
 
-		 <br>
-		 <br>
 	{% if address %}
-		<thead class="thead-light">
-		<tr><td>country</td><td>fullnamw</td><td>mobileno</td><td>pincode</td><td>city</td><td>street</td><td>landmark</td><td>state</td><td>address_type</td></tr>
-		</thead>
+	<div class="container">
+			<div class="row">
 	    {% for add in address %}
-	    <tr>
+		<div class="col-md-4 responsive" id={item.id}>
+			<div class="thumbnail">
+			<p><b>{{add.fullname}}</b></p>
+			<p>{{add.street}}</p>
+			<p>{{add.landmark}}, {{add.city}}</p>
+			<p>{{add.state}} {{add.pincode}}</p>
+			<p>Phone Number:{{add.mobileno}}</p>
 
-            <td>{{ add.country }}</td>
-            <td>{{add.fullname}}</td>
-            <td>{{add.mobileno}}</td>
-            <td>{{add.pincode}}</td>
-            <td>{{add.city}}</td>
-            <td>{{add.street}}</td>
-            <td>{{add.landmark}}</td>
-            <td>{{add.state}}</td>
-			<td>{{add.address_type}}</td>
+		 <a class="btn btn-info btn-sm" href="{% url 'address_html' add.id %}/edit" >edit</a>
 
-		 <td><a href="{% url 'address_html' add.id %}/edit" >edit</a></td>
-		 <td><a href="{% url 'address_html' add.id %}/delete" >delete</a></td>
-		<td>
+		 <a class="btn btn-info btn-sm" href="{% url 'address_html' add.id %}/delete" >delete</a>
+
 			<a href="{% url 'place_order' %}" class="btn btn-info btn-md">
 				 Confirm
 			</a>
-		</td>
-            </tr>
+
+			</div>
+			</div>
+	<div class="col-md-6">
+
+	</div>
 		{% endfor %}
+			</div>
+	</div>
 	{% else %}
 	    <p>No Address given.</p>
 	{% endif %}
-	</table>
+	</div>
 {% endblock %}
 
 
